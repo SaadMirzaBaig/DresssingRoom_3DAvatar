@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUD_Manager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class HUD_Manager : MonoBehaviour
         this.play_animation.onClick.AddListener(this.PlayAnimation);
 
         this.slider.onValueChanged.AddListener(this.OnSliderChanged);
+
     }
 
     private void Update()
@@ -58,7 +60,7 @@ public class HUD_Manager : MonoBehaviour
     }
     void OnPlay()
     {
-        // To Drop the Hat
+        // To Drop the Cape
         StartCoroutine(DropCloth());
     }
 
@@ -114,14 +116,26 @@ public class HUD_Manager : MonoBehaviour
             characterController.enabled = !characterController.enabled;
 
         }
-        characterController.SetTrigger("animate");
 
+        Cape.SetActive(false);
+        characterController.SetTrigger("animate");
+        playBtn.interactable = false;
     }
 
+
+    public void ExitScene()
+    {
+        Application.Quit();
+    }
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     IEnumerator DropCloth()
     {
         drop = true;
-        Cape.SetActive(true);
+        Cape_Point.GetComponent<Rigidbody>().useGravity = true;
         yield return new WaitForSeconds(0.5f);
         play_animation.interactable = true;
 
