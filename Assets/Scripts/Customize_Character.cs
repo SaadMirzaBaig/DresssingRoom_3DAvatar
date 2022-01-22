@@ -49,6 +49,8 @@ public class Customize_Character : MonoBehaviour
 
     public void OnButtonIncrease()
     {
+
+        print("it is printing " +incValue);
         if (incValue * 100 <= 100)
         {
             incValue += 0.1f;
@@ -58,6 +60,8 @@ public class Customize_Character : MonoBehaviour
 
     public void OnButtonDecrease()
     {
+        print("it is printing dec " +incValue);
+
         if (incValue * 100 >= 0)
         {
             incValue -= 0.1f;
