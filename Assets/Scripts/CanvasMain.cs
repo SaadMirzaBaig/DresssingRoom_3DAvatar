@@ -7,6 +7,6 @@ public class CanvasMain : MonoBehaviour
 {
    public void OnWelcome()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
