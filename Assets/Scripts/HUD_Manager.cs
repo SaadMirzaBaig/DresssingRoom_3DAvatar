@@ -13,7 +13,6 @@ public class HUD_Manager : MonoBehaviour
     public Button increaseWaist, decreaseWaist;
     public Button play_animation;
 
-    public GameObject cowBoyHat;
     public GameObject Character;
 
     public SkinnedMeshRenderer SkinnedMeshRenderer;
@@ -22,7 +21,12 @@ public class HUD_Manager : MonoBehaviour
 
     private float incValue;
 
+    public GameObject Cape_Point;
+    public GameObject PlayerHead;
+    public GameObject Cape;
+    private float dist;
 
+    private bool drop;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,10 +40,26 @@ public class HUD_Manager : MonoBehaviour
         this.slider.onValueChanged.AddListener(this.OnSliderChanged);
     }
 
+    private void Update()
+    {
+
+        if (drop)
+        {
+            dist = Vector3.Distance(PlayerHead.transform.position, Cape_Point.transform.position);
+
+            if (dist <= 0.6f)
+            {
+                Cape_Point.GetComponent<Rigidbody>().useGravity = false;
+                drop = false;
+
+            }
+        }
+
+    }
     void OnPlay()
     {
         // To Drop the Hat
-        StartCoroutine(DropHat());
+        StartCoroutine(DropCloth());
     }
 
 
@@ -98,11 +118,11 @@ public class HUD_Manager : MonoBehaviour
 
     }
 
-    IEnumerator DropHat()
+    IEnumerator DropCloth()
     {
-        cowBoyHat.SetActive(true);
+        drop = true;
+        Cape.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        cowBoyHat.GetComponent<Rigidbody>().useGravity = false;
         play_animation.interactable = true;
 
     }
