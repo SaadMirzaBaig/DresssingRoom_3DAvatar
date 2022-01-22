@@ -18,6 +18,7 @@ public class DemoManager : MonoBehaviour
     [SerializeField] private Button playBtn;
     [SerializeField] private Button play_animation;
 
+    private Rigidbody cape_rb;
 
     private bool drop;
 
@@ -27,6 +28,11 @@ public class DemoManager : MonoBehaviour
     public readonly int MyAnimate = Animator.StringToHash("animate");
 
 
+    private void Awake()
+    {
+        cape_rb = cape_Point.GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         if (drop)
@@ -35,7 +41,7 @@ public class DemoManager : MonoBehaviour
 
             if (dist <= 0.6f)
             {
-                cape_Point.GetComponent<Rigidbody>().useGravity = false;
+                cape_rb.useGravity = false;
                 drop = false;
 
             }
