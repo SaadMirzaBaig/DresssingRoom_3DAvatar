@@ -16,6 +16,8 @@ public class DemoManager : MonoBehaviour
     [SerializeField] private GameObject playerHead;
 
     [SerializeField] private Button playBtn;
+    [SerializeField] private List<Button> listOfAnimationBtn;
+
     [SerializeField] private Button play_animation;
 
     private Rigidbody cape_rb;
@@ -31,6 +33,7 @@ public class DemoManager : MonoBehaviour
     private void Awake()
     {
         cape_rb = cape_Point.GetComponent<Rigidbody>();
+        play_animation.interactable = false;
     }
 
     private void Update()
