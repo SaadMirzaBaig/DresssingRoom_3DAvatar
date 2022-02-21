@@ -17,12 +17,13 @@ public class HUD_Manager : MonoBehaviour
     [SerializeField] private Button pose_two;
     [SerializeField] private Button pose_idle;
 
+    [SerializeField] private Button changeColor1;
+    [SerializeField] private Button changeColor2;
+
     [SerializeField] private GameObject character;
 
 
-
     private float dist;
-
     private bool drop;
 
     // Start is called before the first frame update
@@ -33,9 +34,13 @@ public class HUD_Manager : MonoBehaviour
         increaseWaist.onClick.AddListener(OnButtonIncrease);
         decreaseWaist.onClick.AddListener(OnButtonDecrease);
         play_animation.onClick.AddListener(PlayAnimation);
+
         pose_one.onClick.AddListener(Pose1);
         pose_two.onClick.AddListener(Pose2);
         pose_idle.onClick.AddListener(Idle);
+
+        changeColor1.onClick.AddListener(ChangeColor1);
+        changeColor2.onClick.AddListener(ChangeColor2);
 
         slider.onValueChanged.AddListener(OnSliderChanged);
 
@@ -47,8 +52,18 @@ public class HUD_Manager : MonoBehaviour
     }
 
 
+    private void ChangeColor1()
+    {
+        //To change the material of cloth
+        DemoEventHolder.OnChangeColor1?.Invoke();
+    }
 
-     private void OnSliderChanged(float value)
+    private void ChangeColor2()
+    {
+        //To change the material of cloth
+        DemoEventHolder.OnChangeColor2?.Invoke();
+    }
+    private void OnSliderChanged(float value)
     {
         //To Rotate the Character with slider
         character.transform.rotation = Quaternion.Euler(0, slider.value * 360, 0);
@@ -90,9 +105,9 @@ public class HUD_Manager : MonoBehaviour
 
     }
 
-    public void ExitScene()
+    public void LogoutScene()
     {
-        Application.Quit();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 
     public void ResetScene()

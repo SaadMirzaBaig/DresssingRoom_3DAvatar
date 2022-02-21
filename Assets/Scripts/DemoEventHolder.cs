@@ -16,5 +16,9 @@ public class DemoEventHolder
     public static Action OnIncreaseWaist { get; set; }
     public static Action OnDecreaseWaist { get; set; }
 
+    public static Action OnChangeColor1 { get; set; }
+    
+    public static Action OnChangeColor2 { get; set; }
+
 
 }

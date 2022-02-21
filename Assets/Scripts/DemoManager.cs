@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class DemoManager : MonoBehaviour
 {
 
+    [SerializeField] private DataHolder dataHolder;
 
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] private SkinnedMeshRenderer clothSkinnedMeshRenderer;
 
     [SerializeField] private Animator characterController;
 
@@ -66,6 +68,9 @@ public class DemoManager : MonoBehaviour
         DemoEventHolder.OnChangePose2 += ChangePose2;
         DemoEventHolder.OnChangeIdle +=  ChangeIdle;
 
+        DemoEventHolder.OnChangeColor1 += ChangeColor1;
+        DemoEventHolder.OnChangeColor2 += ChangeColor2;
+
         DemoEventHolder.OnPlayAnimation += PlayAnimation;
         DemoEventHolder.OnPlayPressed += DropCape;
         DemoEventHolder.OnIncreaseWaist += IncreaseWaist;
@@ -77,6 +82,9 @@ public class DemoManager : MonoBehaviour
         DemoEventHolder.OnChangePose1 -= ChangePose1;
         DemoEventHolder.OnChangePose2 -= ChangePose2;
         DemoEventHolder.OnChangeIdle -=  ChangeIdle;
+
+        DemoEventHolder.OnChangeColor1 -= ChangeColor1;
+        DemoEventHolder.OnChangeColor2 -= ChangeColor2;
 
         DemoEventHolder.OnPlayAnimation -= PlayAnimation;
         DemoEventHolder.OnPlayPressed -= DropCape;
@@ -176,6 +184,15 @@ public class DemoManager : MonoBehaviour
         skinnedMeshRenderer.SetBlendShapeWeight(0, incValue * 100);
     }
 
+    private void ChangeColor1()
+    {
+        clothSkinnedMeshRenderer.material = dataHolder.clothMaterialSet[0];
+    }
+
+    private void ChangeColor2()
+    {
+        clothSkinnedMeshRenderer.material = dataHolder.clothMaterialSet[1];
+    }
     IEnumerator DropCloth()
     {
         drop = true;
