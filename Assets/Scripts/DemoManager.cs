@@ -15,8 +15,9 @@ public class DemoManager : MonoBehaviour
     [SerializeField] private GameObject cape_Point;
     [SerializeField] private GameObject playerHead;
 
+    [SerializeField] private Transform characterMain;
+
     [SerializeField] private Button playBtn;
-    [SerializeField] private List<Button> listOfAnimationBtn;
 
     [SerializeField] private Button play_animation;
 
@@ -28,16 +29,25 @@ public class DemoManager : MonoBehaviour
     private float dist;
 
     public readonly int MyAnimate = Animator.StringToHash("animate");
-
+    public readonly int MyPose1 = Animator.StringToHash("dynamic");
+    public readonly int MyPose2 = Animator.StringToHash("sleep");
+    public readonly int MyPoseIdle = Animator.StringToHash("idle");
 
     private void Awake()
     {
         cape_rb = cape_Point.GetComponent<Rigidbody>();
         play_animation.interactable = false;
+       
     }
 
     private void Update()
     {
+        //if (characterController.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !characterController.IsInTransition(0))
+        //{
+     
+        //   characterMain.localPosition = new Vector3(0, 0, 0);
+        //}
+
         if (drop)
         {
             dist = Vector3.Distance(playerHead.transform.position, cape_Point.transform.position);
@@ -52,6 +62,10 @@ public class DemoManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        DemoEventHolder.OnChangePose1 += ChangePose1;
+        DemoEventHolder.OnChangePose2 += ChangePose2;
+        DemoEventHolder.OnChangeIdle +=  ChangeIdle;
+
         DemoEventHolder.OnPlayAnimation += PlayAnimation;
         DemoEventHolder.OnPlayPressed += DropCape;
         DemoEventHolder.OnIncreaseWaist += IncreaseWaist;
@@ -60,6 +74,10 @@ public class DemoManager : MonoBehaviour
 
     private void OnDisable()
     {
+        DemoEventHolder.OnChangePose1 -= ChangePose1;
+        DemoEventHolder.OnChangePose2 -= ChangePose2;
+        DemoEventHolder.OnChangeIdle -=  ChangeIdle;
+
         DemoEventHolder.OnPlayAnimation -= PlayAnimation;
         DemoEventHolder.OnPlayPressed -= DropCape;
         DemoEventHolder.OnIncreaseWaist -= IncreaseWaist;
@@ -84,8 +102,41 @@ public class DemoManager : MonoBehaviour
 
         }
 
-        cape.SetActive(false);
+        //cape.SetActive(false);
         characterController.SetTrigger(MyAnimate);
+        playBtn.interactable = false;
+    }
+
+    private void ChangePose1()
+    {
+        if (!characterController.enabled)
+        {
+            characterController.enabled = !characterController.enabled;
+
+        }
+        characterController.SetTrigger(MyPose1);
+        playBtn.interactable = false;
+    }
+
+    private void ChangePose2()
+    {
+        if (!characterController.enabled)
+        {
+            characterController.enabled = !characterController.enabled;
+
+        }
+        characterController.SetTrigger(MyPose2);
+        playBtn.interactable = false;
+    }
+
+    private void ChangeIdle()
+    {
+        if (!characterController.enabled)
+        {
+            characterController.enabled = !characterController.enabled;
+
+        }
+        characterController.SetTrigger(MyPoseIdle);
         playBtn.interactable = false;
     }
 
