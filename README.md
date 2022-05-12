@@ -9,6 +9,7 @@
 
 * The application should start with a very simple “welcome” UI panel, complete with a button
 that brings the user to the main screen of the application.
+* Create a login system using Scriptable Objects for 2 users. Each user can have 2 different choice of color for cloth.
 * On the main screen the user can view the 3D model of a human character, and by pressing
 two dedicated UI buttons, labeled “+” and “-”, the user can respectively increase or decrease
 the waist of the character. Only the waist area is supposed to change in volume, when using
